@@ -1,0 +1,61 @@
+<!--
+  ~ Copyright (C) 2023 The Android Open Source Project
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     https://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+<resources>
+    <string name="app_name">Objetos de Casa</string>
+    <string name="room">Habitaciones</string>
+    <string name="api">Api de perros</string>
+    <string name="dog">Dog api</string>
+    <string name="itemHabitacion">Objetos de la Habitacion</string>
+    <string name="attention">Tencion</string>
+    <string name="back_button">Atras</string>
+    <string name="delete">Eliminar</string>
+    <string name="delete_question">Estas seguro de eliminar el Objeto</string>
+    <string name="no_item_description">Aun no existe registro de inventario</string>
+    <string name="edit_item_title">Editar Objeto</string>
+    <string name="note_item_title">Agregar Nota</string>
+    <string name="item">Objeto: </string>
+    <string name="item_detail_title">Objetos de casa</string>
+    <string name="item_entry_title">Agregar Objeto de Casa</string>
+    <string name="habitacion_entry_title">Agregar Objeto a una habitacion</string>
+    <string name="item_name_req">Nombre del objeto*</string>
+    <string name="item_description_req">Descripcion del objeto*</string>
+    <string name="no">No</string>
+    <string name="description">Descripcion: </string>
+    <string name="image">Imagen: </string>
+    <string name="categoria">Categoria: </string>
+    <string name="ubicacion">Ubicacion: </string>
+    <string name="label">Etiqueta: </string>
+    <string name="note">Nota: </string>
+    <string name="date">Fecha: </string>
+    <string name="price">Precio: </string>
+    <string name="imagen_req">Imagen*</string>
+    <string name="categoria_req">Categoria*</string>
+    <string name="ubicacion_req">Ubicacion*</string>
+    <string name="label_req">Etiqueta*</string>
+    <string name="note_req">Nota*</string>
+    <string name="date_req">Fecha adquisicion*</string>
+    <string name="price_req">Precio*</string>
+    <string name="quantity_req">Cantidad*</string>
+    <string name="save_action">Guardar</string>
+    <string name="yes">Si</string>
+    <string name="required_fields">*Datos requeridos</string>
+    <string name="quantity_in_stock">Quantity in stock</string>
+    <string name="in_stock">%d in stock</string>
+    <string name="loading_failed">Error al cargar</string>
+    <string name="retry">Intentelo otra vez</string>
+    <string name="loading">Cargando</string>
+    <string name="dog_photo">Foto del perro</string>
+</resources>
