@@ -1,7 +1,9 @@
 
 package com.example.inventory.ui.item
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
@@ -10,15 +12,24 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material3.Button
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.dimensionResource
@@ -117,6 +128,20 @@ fun ItemInputForm(
     onValueChange: (ItemDetails) -> Unit = {},
     enabled: Boolean = true
 ) {
+    // Lista de categorías predefinidas
+    val categories = listOf("Electrodoméstico", "Mueble", "Decoración", "Herramienta", "Otro")
+    // Estado para controlar si el menú está expandido o no
+    var expanded by remember { mutableStateOf(false) }
+    // Estado para almacenar la categoría seleccionada
+    var selectedIndex by remember { mutableStateOf(categories.indexOf(itemDetails.categoria)) }
+
+    // Lista de ubicaciones predefinidas
+    val ubicaciones = listOf("Sala", "Comedor", "Dormitorio", "Baño", "Garage", "Otro")
+    // Estado para controlar si el menú está expandido o no
+    var expanded2 by remember { mutableStateOf(false) }
+    // Estado para almacenar la ubicacion seleccionada
+    var selectedIndex2 by remember { mutableStateOf(ubicaciones.indexOf(itemDetails.ubicacion)) }
+
     Column(
         modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.padding_medium))
@@ -161,32 +186,91 @@ fun ItemInputForm(
                 enabled = enabled,
                 singleLine = true
             )
-            OutlinedTextField(
-                value = itemDetails.categoria,
-                onValueChange = { onValueChange(itemDetails.copy(categoria = it)) },
-                label = { Text(stringResource(R.string.categoria_req)) },
-                colors = OutlinedTextFieldDefaults.colors(
-                    focusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
-                    unfocusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
-                    disabledContainerColor = MaterialTheme.colorScheme.secondaryContainer,
-                ),
-                modifier = Modifier.fillMaxWidth(),
-                enabled = enabled,
-                singleLine = true
-            )
-            OutlinedTextField(
-                value = itemDetails.ubicacion,
-                onValueChange = { onValueChange(itemDetails.copy(ubicacion = it)) },
-                label = { Text(stringResource(R.string.ubicacion_req)) },
-                colors = OutlinedTextFieldDefaults.colors(
-                    focusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
-                    unfocusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
-                    disabledContainerColor = MaterialTheme.colorScheme.secondaryContainer,
-                ),
-                modifier = Modifier.fillMaxWidth(),
-                enabled = enabled,
-                singleLine = true
-            )
+            Box(
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                OutlinedTextField(
+                    value = if (selectedIndex >= 0) categories[selectedIndex] else itemDetails.categoria,
+                    onValueChange = { },
+                    label = { Text(stringResource(R.string.categoria_req)) },
+                    trailingIcon = {
+                        Icon(
+                            imageVector = Icons.Filled.ArrowDropDown,
+                            contentDescription = "Desplegar",
+                            Modifier.clickable { expanded = !expanded }
+                        )
+                    },
+                    colors = OutlinedTextFieldDefaults.colors(
+                        focusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
+                        unfocusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
+                        disabledContainerColor = MaterialTheme.colorScheme.secondaryContainer
+                    ),
+                    modifier = Modifier.fillMaxWidth(),
+                    enabled = enabled,
+                    readOnly = true
+                )
+                DropdownMenu(
+                    expanded = expanded,
+                    onDismissRequest = { expanded = false },
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    categories.forEachIndexed { index, category ->
+                        DropdownMenuItem(
+                            text = { Text(text = category) },
+                            onClick = {
+                                selectedIndex = index
+                                expanded = false
+                                onValueChange(itemDetails.copy(categoria = category))
+                            }
+                        )
+
+
+                    }
+                }
+            }
+
+            Box(
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                OutlinedTextField(
+                    value = if (selectedIndex2 >= 0) ubicaciones[selectedIndex2] else itemDetails.ubicacion,
+                    onValueChange = { },
+                    label = { Text(stringResource(R.string.ubicacion_req)) },
+                    trailingIcon = {
+                        Icon(
+                            imageVector = Icons.Filled.ArrowDropDown,
+                            contentDescription = "Desplegar",
+                            Modifier.clickable { expanded2 = !expanded2 }
+                        )
+                    },
+                    colors = OutlinedTextFieldDefaults.colors(
+                        focusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
+                        unfocusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
+                        disabledContainerColor = MaterialTheme.colorScheme.secondaryContainer
+                    ),
+                    modifier = Modifier.fillMaxWidth(),
+                    enabled = enabled,
+                    readOnly = true
+                )
+                DropdownMenu(
+                    expanded = expanded2,
+                    onDismissRequest = { expanded2 = false },
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    ubicaciones.forEachIndexed { index2, ubicacion ->
+                        DropdownMenuItem(
+                            text = { Text(text = ubicacion) },
+                            onClick = {
+                                selectedIndex2 = index2
+                                expanded2 = false
+                                onValueChange(itemDetails.copy(ubicacion = ubicacion))
+                            }
+                        )
+
+
+                    }
+                }
+            }
 
             OutlinedTextField(
                 value = itemDetails.price,
