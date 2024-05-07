@@ -86,6 +86,13 @@ fun HomeScreen(
         },
         floatingActionButton = {
             Row {
+
+                Text(
+                    text = "Ad. Diego Ramos V.1.0.0",
+                    style = MaterialTheme.typography.titleSmall,
+                    modifier = modifier.padding(top = 40.dp)
+                )
+                Spacer(modifier = Modifier.width(10.dp))
                 FloatingActionButton(
                     onClick = navigateToItemEntry,
                     shape = MaterialTheme.shapes.medium,
@@ -137,6 +144,7 @@ fun HomeScreen(
                             .height(27.dp)
                     )
                 }
+
             }
 
         },
