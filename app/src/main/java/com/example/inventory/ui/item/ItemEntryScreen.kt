@@ -128,18 +128,13 @@ fun ItemInputForm(
     onValueChange: (ItemDetails) -> Unit = {},
     enabled: Boolean = true
 ) {
-    // Lista de categorías predefinidas
+
     val categories = listOf("Electrodoméstico", "Mueble", "Decoración", "Herramienta", "Otro")
-    // Estado para controlar si el menú está expandido o no
     var expanded by remember { mutableStateOf(false) }
-    // Estado para almacenar la categoría seleccionada
     var selectedIndex by remember { mutableStateOf(categories.indexOf(itemDetails.categoria)) }
 
-    // Lista de ubicaciones predefinidas
     val ubicaciones = listOf("Sala", "Comedor", "Dormitorio", "Baño", "Garage", "Otro")
-    // Estado para controlar si el menú está expandido o no
     var expanded2 by remember { mutableStateOf(false) }
-    // Estado para almacenar la ubicacion seleccionada
     var selectedIndex2 by remember { mutableStateOf(ubicaciones.indexOf(itemDetails.ubicacion)) }
 
     Column(

@@ -28,12 +28,16 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
@@ -154,11 +158,29 @@ private fun HomeBody(
     modifier: Modifier = Modifier,
     contentPadding: PaddingValues = PaddingValues(0.dp),
 ) {
+    var searchText by remember { mutableStateOf("") }
+
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier,
     ) {
-        if (itemList.isEmpty()) {
+
+        Spacer(modifier = Modifier.height(110.dp))
+        OutlinedTextField(
+            value = searchText,
+            onValueChange = { searchText = it },
+            label = { Text("Buscar") },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp)
+
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+        val filteredItemList = itemList.filter {
+            it.name.contains(searchText, ignoreCase = true)
+        }
+
+        if (filteredItemList.isEmpty()) {
             Text(
                 text = stringResource(R.string.no_item_description),
                 textAlign = TextAlign.Center,
@@ -166,15 +188,17 @@ private fun HomeBody(
                 modifier = Modifier.padding(contentPadding),
             )
         } else {
+
             InventoryList(
-                itemList = itemList,
+                itemList = filteredItemList,
                 onItemClick = { onItemClick(it.id) },
                 contentPadding = contentPadding,
-                modifier = Modifier.padding(horizontal = dimensionResource(id = R.dimen.padding_small))
+                modifier = Modifier.padding(horizontal = dimensionResource(id = R.dimen.padding_small), vertical = 8.dp)
             )
         }
     }
 }
+
 
 @Composable
 private fun InventoryList(
